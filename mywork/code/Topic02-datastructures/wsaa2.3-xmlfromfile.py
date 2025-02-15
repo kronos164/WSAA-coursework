@@ -1,6 +1,6 @@
 from xml.dom.minidom import parse
 
-filename = "employees.xml"
+filename = "C:/Users/caina/OneDrive - Atlantic TU/ATU - VSC Repository/WSAA-coursework/mywork/code/Topic02-datastructures/employees.xml"
 
 # read file in two ways
 doc = parse(filename)
