@@ -41,16 +41,6 @@ def convert_rank_to_value(rank):
     else:
         return int(rank)
     
-def convert_suit_to_value(suit):
-    if suit == "HEARTS":
-        return 4
-    elif suit == "DIAMONDS":
-        return 3
-    elif suit == "CLUBS":
-        return 2
-    else:
-        return 1
-    
 def convert_value_to_rank(value):
     if value == 14:
         return "ACE"
@@ -63,24 +53,10 @@ def convert_value_to_rank(value):
     else:
         return str(value)
     
-def convert_value_to_suit(value):
-    if value == 4:
-        return "HEARTS"
-    elif value == 3:
-        return "DIAMONDS"
-    elif value == 2:
-        return "CLUBS"
-    else:
-        return "SPADES"
-    
 def ranktovalue(ranks):
     rank_values = [convert_rank_to_value(rank) for rank in ranks]
     rank_values = sorted(rank_values)
     return rank_values
-
-def suitstovalue(suits):
-    suit_values = [convert_suit_to_value(suit) for suit in suits]
-    return suit_values
 
 def valuetorank(rank_values):
     ranks_raw = [convert_value_to_rank(value) for value in rank_values]
@@ -173,7 +149,6 @@ def main():
     ranks = draw_rank(data_draw)
     pair_count, triple_count = count_pairs_triples(ranks)
     rank_values = ranktovalue(ranks)
-    suit_values = suitstovalue(suits)
     ranks_raw = valuetorank(rank_values)
     print("Your hand is:")
     print(f"{ranks_raw[0]} of {suits[0]}, {ranks_raw[1]} of {suits[1]}, {ranks_raw[2]} of {suits[2]}, {ranks_raw[3]} of {suits[3]}, {ranks_raw[4]} of {suits[4]}")
