@@ -1,14 +1,18 @@
 import requests
 import json
 
+#Shuffle the deck
 url_suffle = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
 response = requests.get(url_suffle)
 data_suffle = response.json()
 deck_id = data_suffle["deck_id"]
+
+#Draw 5 cards from the deck
 url_draw = f"https://deckofcardsapi.com/api/deck/{deck_id}/draw/?count=5"
 response = requests.get(url_draw)
 data_draw = response.json()
 
+#Save the draw data (drawn hand) to a json file
 output_path = "./WSAA-coursework/assignments/assingment2-carddraw.json"
 with open(output_path, "w") as fp:
     json.dump(data_draw, fp)
