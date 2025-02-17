@@ -13,6 +13,7 @@ output_path = "./WSAA-coursework/assignments/assingment2-carddraw.json"
 with open(output_path, "w") as fp:
     json.dump(data_draw, fp)
 
+#Function to create an aray of suits in the hand
 def draw_suits(data_draw):
     cards_dealt = data_draw["cards"]
     suits = []
@@ -21,6 +22,7 @@ def draw_suits(data_draw):
         suits.append(suit)
     return suits
 
+#Function to create an array of ranks in the hand
 def draw_rank(data_draw):
     cards_dealt = data_draw["cards"]
     ranks = []
@@ -29,6 +31,7 @@ def draw_rank(data_draw):
         ranks.append(rank)
     return ranks
 
+#Function to convert ranks to integer values
 def convert_rank_to_value(rank):
     if rank == "ACE":
         return 14
@@ -40,7 +43,8 @@ def convert_rank_to_value(rank):
         return 11
     else:
         return int(rank)
-    
+
+#Function to convert integer values to ranks
 def convert_value_to_rank(value):
     if value == 14:
         return "ACE"
@@ -52,16 +56,19 @@ def convert_value_to_rank(value):
         return "JACK"
     else:
         return str(value)
-    
+
+#Function to use the convert_rank_to_value function to convert all ranks in the hand to values
 def ranktovalue(ranks):
     rank_values = [convert_rank_to_value(rank) for rank in ranks]
     rank_values = sorted(rank_values)
     return rank_values
 
+#Function to use the convert_value_to_rank function to convert all values in the hand to ranks
 def valuetorank(rank_values):
     ranks_raw = [convert_value_to_rank(value) for value in rank_values]
     return ranks_raw
 
+#Function to count the number of pairs and triples in the hand
 def count_pairs_triples(ranks):
     rank_counts = {}
     for rank in ranks:
@@ -79,6 +86,7 @@ def count_pairs_triples(ranks):
             triple_count += 1
     return pair_count, triple_count
 
+#Function to check if the hand contains a four of a kind
 def four(ranks):
     rank_counts = {}
     for rank in ranks:
@@ -91,6 +99,7 @@ def four(ranks):
             return True
     return False
 
+#Function to check if the hand contains a flush
 def flush(suits):
     suit_counts = {}
     for suit in suits:
@@ -105,6 +114,7 @@ def flush(suits):
             flush += 1
     return flush
 
+#Function to check if the hand contains a full flush (all 5 cards of the same suit)
 def full_flush(suits):
     suit_counts = {}
     for suit in suits:
@@ -119,31 +129,37 @@ def full_flush(suits):
             flush += 1
     return flush
 
+#Function to check if the hand contains a royal flush
 def royal_flush(rank_values, suit):
     if set(rank_values) == {10, 11, 12, 13, 14} and full_flush(suit) == True:
         return True
     return False
 
+#Function to check if the hand contains a straight
 def straight(rank_values):
     if len(set(rank_values)) == 5 and max(rank_values) - min(rank_values) == 4:
         return True
     return False
 
+#Function to check if the hand contains a straight flush
 def straight_flush(rank_values, suit):
     if straight(rank_values) == True and full_flush(suit) == True:
         return True
     return False
 
+#Function to check if the hand contains a full house
 def full_house(pair_count, triple_count):
     if pair_count == 1 and triple_count == 1:
         return True
     return False
 
+#Function to check if the hand contains two pairs
 def two_pair(pair_count):
     if pair_count == 2:
         return True
     return False
 
+#Main function to print the hand and the outcome of the hand in poker terms
 def main():
     suits = draw_suits(data_draw)
     ranks = draw_rank(data_draw)
