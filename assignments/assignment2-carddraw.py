@@ -97,23 +97,8 @@ def four(ranks):
             return True
     return False
 
-#Function to check if the hand contains a flush
-def flush(suits):
-    suit_counts = {}
-    for suit in suits:
-        if suit in suit_counts:
-            suit_counts[suit] += 1
-        else:
-            suit_counts[suit] = 1
-    
-    flush = 0
-    for count in suit_counts.values():
-        if count >= 4:
-            flush += 1
-    return flush
-
 #Function to check if the hand contains a full flush (all 5 cards of the same suit)
-def full_flush(suits):
+def flush(suits):
     suit_counts = {}
     for suit in suits:
         if suit in suit_counts:
@@ -129,7 +114,7 @@ def full_flush(suits):
 
 #Function to check if the hand contains a royal flush
 def royal_flush(rank_values, suit):
-    if set(rank_values) == {10, 11, 12, 13, 14} and full_flush(suit) == True:
+    if set(rank_values) == {10, 11, 12, 13, 14} and flush(suit) == True:
         return True
     return False
 
@@ -141,7 +126,7 @@ def straight(rank_values):
 
 #Function to check if the hand contains a straight flush
 def straight_flush(rank_values, suit):
-    if straight(rank_values) == True and full_flush(suit) == True:
+    if straight(rank_values) == True and flush(suit) == True:
         return True
     return False
 
@@ -170,7 +155,7 @@ def main():
     if royal_flush(rank_values, suits) == True:
         print("Congratulation!!!!! YOU GOT A ROYAL FLUSH!!!!!!!!!")
     elif straight_flush(rank_values, suits) == True:
-        print("Congratulation! You got a Straight Flush")
+        print("Congratulation! You got a Straight Flush!!!")
     elif four(rank_values) == True:
         print("Congratulation! You got a Four of a Kind")
     elif full_house(pair_count, triple_count) == True:
