@@ -17,5 +17,4 @@ def main():
     data = request(url)
     dump_json(data, folder_path='./WSAA-coursework/assignments/')
 
-if __name__ == "__main__":
-    main()
+main()

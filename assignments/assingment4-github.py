@@ -9,7 +9,7 @@ def read_file(url, apikey):
     response = requests.get(url, headers=headers)
     content = response.json()
     file_content = content['content']
-    return file_content, content
+    return file_content, content, headers
 
 # This function decodes the content of the file from base64 and converts it to a dictionary
 def decode_content(file_content):
@@ -47,14 +47,15 @@ def commit(url, headers, data):
 def main():
     url = 'https://api.github.com/repos/kronos164/WSAA-coursework/contents/assignments/andrewfile.json'
     apikey = GHkey["GitHub-APIkey"]
-    headers = {'Authorization': f'token {apikey}'}
-    file_content, content = read_file(url, apikey)
+    file_content, content, headers = read_file(url, apikey)
     file_content = decode_content(file_content)
     file_content = replace_content(file_content)
     updated_content = encode_content(file_content)
     data = prepare_commit(updated_content, content)
     response = commit(url, headers, data)
-    print(response)
+    if response.status_code == 200:
+        print('File commited successfully')
+    else:
+        print('Error in commiting the file')
 
-if __name__ == '__main__':
-    main()
+main()

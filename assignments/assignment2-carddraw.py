@@ -173,5 +173,4 @@ def main():
     else:
         print("You got High Card")
         
-if __name__ == "__main__":
-    main()
+main()
