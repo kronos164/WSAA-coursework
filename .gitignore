@@ -163,4 +163,4 @@ cython_debug/
 
 # API keys
 keys.py
-db_credentials.py
+db_keys.py

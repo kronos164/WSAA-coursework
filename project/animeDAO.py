@@ -1,4 +1,4 @@
-from db_credentials import db
+from db_keys import db
 from flask import Flask
 from flask_mysqldb import MySQL
 
