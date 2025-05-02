@@ -40,7 +40,7 @@ class AnimeDAO:
         return self.cursor.fetchall()
 
     def add_anime(self, id, name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning):
-        query = "INSERT INTO animes (id, name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning) VALUES (%s, %s, %s)"
+        query = "INSERT INTO animes (id, name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         self.getCursor()
         self.cursor.execute(query, (id, name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning))
         self.connection.commit()
