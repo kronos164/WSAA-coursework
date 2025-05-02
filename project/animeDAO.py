@@ -28,22 +28,25 @@ class AnimeDAO:
         return self.cursor
     
     def get_anime_by_id(self, id):
-        query = "SELECT * FROM anime WHERE id = %s"
+        query = "SELECT * FROM animes WHERE id = %s"
+        self.getCursor()
         self.cursor.execute(query, (id,))
         return self.cursor.fetchone()
 
     def get_all_anime(self):
-        query = "SELECT * FROM anime"
+        query = "SELECT * FROM animes"
+        self.getCursor()
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
     def add_anime(self, id, name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning):
-        query = "INSERT INTO anime (id, name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning) VALUES (%s, %s, %s)"
+        query = "INSERT INTO animes (id, name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning) VALUES (%s, %s, %s)"
+        self.getCursor()
         self.cursor.execute(query, (id, name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning))
         self.connection.commit()
     
     def update_anime(self, id=None, name=None, jp_name=None, type=None, episodes=None, studio=None, release_season=None, tags=None, rating=None, release_year=None, end_year=None, content_warning=None):
-        query = "UPDATE anime SET "
+        query = "UPDATE animes SET "
         params = []
         if id:
             query += "id = %s, "
@@ -86,12 +89,14 @@ class AnimeDAO:
         query = query.rstrip(", ")
         query += " WHERE id = %s"
         params.append(id)
-
+        
+        self.getCursor()
         self.cursor.execute(query, tuple(params))
         self.connection.commit()
     
     def delete_anime(self, id):
-        query = "DELETE FROM anime WHERE id = %s"
+        query = "DELETE FROM animes WHERE id = %s"
+        self.getCursor()
         self.cursor.execute(query, (id,))
         self.connection.commit()
     
