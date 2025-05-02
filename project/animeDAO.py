@@ -1,31 +1,27 @@
-import mysql.connector as mysql
 from db_credentials import db
+from flask import Flask
+from flask_mysqldb import MySQL
 
 class AnimeDAO:
     
-    host = ""
-    user = ""
-    password = ""
-    database = ""
-    connection = ""
-    cursor = ""
+    app = Flask(__name__)
+    app.config['MYSQL_HOST'] = db['host']
+    app.config['MYSQL_USER'] = db['user']
+    app.config['MYSQL_PASSWORD'] = db['password']
+    app.config['MYSQL_DB'] = db['database']
+    mysql = MySQL(app)
     
     def __init__(self):
-    
-        self.host = db['host']
-        self.user = db['user']
-        self.password = db['password']
-        self.database = db['database']
-
+        self.connection = self.mysql.connection
+        self.cursor = None
+        self.getCursor()
+        
     def getCursor(self):
-        self.connection = mysql.connect(
-            host=self.host,
-            user=self.user,
-            password=self.password,
-            database=self.database
-        )
-        self.cursor = self.connection.cursor()
-        return self.cursor
+        if self.cursor is None:
+            self.cursor = self.connection.cursor()
+        else:
+            self.cursor.close()
+            self.cursor = self.connection.cursor()
     
     def get_anime_by_id(self, id):
         query = "SELECT * FROM animes WHERE id = %s"
@@ -107,3 +103,6 @@ class AnimeDAO:
             print("MySQL connection is closed")
     
 animeDAO = AnimeDAO()
+
+print("AnimeDAO initialized")
+print(AnimeDAO.get_anime_by_id(1))

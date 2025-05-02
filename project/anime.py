@@ -5,20 +5,23 @@ app = Flask(__name__)
 # get all anime by id from the sql database
 
 # get all anime from the sql database
-@app.route('/anime', methods=['GET'])
-def get_anime():
-    anime_id = request.args.get('id')
-    if anime_id:
-        # Fetch anime by ID from the database
-        anime = animeDAO.get_anime_by_id(anime_id)
-        if anime:
-            return jsonify(anime), 200
-        else:
-            return jsonify({"error": "Anime not found"}), 404
-    else:
+@app.route('/anime/<string:identifier>', methods=['GET'])
+def get_anime(identifier):
+    if identifier == "all":
         # Fetch all anime from the database
         all_anime = animeDAO.get_all_anime()
         return jsonify(all_anime), 200
+    else:
+        try:
+            anime_id = int(identifier)
+            # Fetch anime by ID from the database
+            anime = animeDAO.get_anime_by_id(anime_id)
+            if anime:
+                return jsonify(anime), 200
+            else:
+                return jsonify({"error": "Anime not found"}), 404
+        except ValueError:
+            return jsonify({"error": "Invalid identifier"}), 400
 
 @app.route('/anime', methods=['POST'])
 #add anime to the sql database using the animeDAO class
