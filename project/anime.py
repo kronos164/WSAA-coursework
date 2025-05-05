@@ -14,9 +14,8 @@ app.config['MYSQL_DB'] = db['database']
 
 mysql = MySQL(app)
 
-
 @app.route('/', methods=['GET', 'POST'])
-
+@app.route('/home', methods=['GET', 'POST'])
 def home():
     return render_template('index.html')
 def new_id():
