@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Centering</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Sorry!!!<h1>
+        <h1>No anime found</h1>
+    <form action="/added" method="POST">
+        <h2>Would you like to add an anime to the database?</h2>
+        Anime Name: <input type="text" name="name" /><br>
+        Japanese Name: <input type="text" name="jp_name" /><br>
+        Type: 
+        <select name="type">
+            <option value="TV">TV</option>
+            <option value="Web">Web</option>
+            <option value="Movie">Movie</option>
+        </select><br>
+        Number of Episodes: <input type="number" name="episodes" /><br>
+        Studio: <input type="text" name="studio" /><br>
+        Tags: <input type="text" name="tags" /><br>
+        Rating: <input type="number" name="rating" step="0.05" min="0" max="5" /><br>
+        Release Year: <input type="number" name="release_year" min="1970" max="2025" step="1" /><br>
+        Release Season: 
+        <select name="release_season">
+            <option value="spring">Spring</option>
+            <option value="summer">Summer</option>
+            <option value="fall">Fall</option>
+            <option value="winter">Winter</option>
+        </select><br>
+        End year: <input type="number" name="end_year" min="1970" max="2025" step="1" /><br>
+        Content Warning: <input type="text" name="content_warning" /><br>
+        <input type="submit" value="Add Anime" style="margin-top: 10px;"/>
+    </form>
+</body>
+</html>
+    

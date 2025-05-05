@@ -24,60 +24,23 @@
 </head>
 <body>
     <div class="form-container">
-        <form action="/search" method="POST">
-            <h2>Search Anime</h2>
-            ID: <input type="text" name="id" /><br>
-            Anime Name: <input type="text" name="name" /><br>
-            Japanese Name: <input type="text" name="jp_name" /><br>
-            Type: 
-            <select name="type">
-                <option value="TV">TV</option>
-                <option value="Web">Web</option>
-                <option value="Movie">Movie</option>
-            </select><br>
-            Number of Episodes: <input type="number" name="episodes" /><br>
-            Studio: <input type="text" name="studio" /><br>
-            Tags: <input type="text" name="tags" /><br>
-            Rating: <input type="number" name="rating" min="0" max="5" /><br>
-            Release Year: <input type="number" name="release_year" min="1970" max="2025"  /><br>
-            Release Season: 
-            <select name="release_season">
-                <option value="spring">Spring</option>
-                <option value="summer">Summer</option>
-                <option value="fall">Fall</option>
-                <option value="winter">Winter</option>
-            </select><br>
-            End year: <input type="number" name="end_year" min="1970" max="2025"  /><br>
-            Content Warning: <input type="text" name="content_warning" /><br>
-            <input type="submit" value="Search" />
+        <form action="/search" method="POST" style="margin-top: 10px;">
+            <h1>Search Anime</h1>
+            ID: <input type="text" name="id" /><br>          
+            <input type="submit" value="Search" style="margin-top: 10px;"/>
         </form>
-
-        <form action="/add" method="POST">
-            <h2>Add Anime</h2>
-            ID: <input type="text" name="id" /><br>
-            Anime Name: <input type="text" name="name" /><br>
-            Japanese Name: <input type="text" name="jp_name" /><br>
-            Type: 
-            <select name="type">
-                <option value="TV">TV</option>
-                <option value="Web">Web</option>
-                <option value="Movie">Movie</option>
-            </select><br>
-            Number of Episodes: <input type="number" name="episodes" /><br>
-            Studio: <input type="text" name="studio" /><br>
-            Tags: <input type="text" name="tags" /><br>
-            Rating: <input type="number" name="rating" min="0" max="5" /><br>
-            Release Year: <input type="number" name="release_year" min="1970" max="2025"  /><br>
-            Release Season: 
-            <select name="release_season">
-                <option value="spring">Spring</option>
-                <option value="summer">Summer</option>
-                <option value="fall">Fall</option>
-                <option value="winter">Winter</option>
-            </select><br>
-            End year: <input type="number" name="end_year" min="1970" max="2025"  /><br>
-            Content Warning: <input type="text" name="content_warning" /><br>
+        <form action="/all" method="POST" style="margin-top: 10px;">
+            <input type="submit" value="View All Animes" />
+        </form>
+            <h2>Or add a new anime</h2>
+        <form action="/add" method="POST" style="margin-top: 10px;">
             <input type="submit" value="Add Anime" />
+        </form>
+            <h2>You can also delete an anime by submitting its ID bellow</h2>
+        <form action="/delete" method="POST" style="margin-top: 10px;">
+            ID: <input type="text" name="anime_id" /><br>
+            <input type="submit" value="Delete Anime" style="margin-top: 10px;"/>
+        </form>
     </div>
 </body>
 </html>

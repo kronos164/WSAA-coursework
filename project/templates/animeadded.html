@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime List</title>
+</head>
+<body>
+    <h1>Anime Added</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Japanese Name</th>
+                <th>Type</th>
+                <th>Episodes</th>
+                <th>Studio</th>
+                <th>Release Season</th>
+                <th>Tags</th>
+                <th>Rating</th>
+                <th>Release Year</th>
+                <th>End Year</th>
+                <th>Content Warning</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for anime in animeDetails %}
+            <tr>
+                <td>{{anime[0]}}</td>
+                <td>{{anime[1]}}</td>
+                <td>{{anime[2]}}</td>
+                <td>{{anime[3]}}</td>
+                <td>{{anime[4]}}</td>
+                <td>{{anime[5]}}</td>
+                <td>{{anime[6]}}</td>
+                <td>{{anime[7]}}</td>
+                <td>{{anime[8]}}</td>
+                <td>{{anime[9]}}</td>
+                <td>{{anime[10]}}</td>
+                <td>{{anime[11]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <form action="/add" method="POST" style="margin-top: 10px;">
+            <input type="submit" value="Add another Anime" />
+        </form>
+        <form action="/all" method="POST" style="margin-top: 10px;">
+            <input type="submit" value="View All Animes" />
+        </form>
+        <h2>Update this anime:<h2>
+        <form action="/update" method="POST" style="margin-top: 20px; font-size: 0.6em;">
+            Anime Name: <input type="text" name="name" /><br>
+            Japanese Name: <input type="text" name="jp_name" /><br>
+            Type: 
+            <select name="type">
+            <option value="TV">TV</option>
+            <option value="Web">Web</option>
+            <option value="Movie">Movie</option>
+            </select><br>
+            Number of Episodes: <input type="number" name="episodes" /><br>
+            Studio: <input type="text" name="studio" /><br>
+            Tags: <input type="text" name="tags" /><br>
+            Rating: <input type="number" name="rating" step="0.05" min="0" max="5" /><br>
+            Release Year: <input type="number" name="release_year" min="1970" max="2025" step="1" /><br>
+            Release Season: 
+            <select name="release_season">
+            <option value="spring">Spring</option>
+            <option value="summer">Summer</option>
+            <option value="fall">Fall</option>
+            <option value="winter">Winter</option>
+            </select><br>
+            End year: <input type="number" name="end_year" min="1970" max="2025" step="1" /><br>
+            Content Warning: <input type="text" name="content_warning" /><br>
+            {% for anime in animeDetails %}
+            <input type="hidden" name="anime_id" value="{{anime[0]}}" />
+            {% endfor %}
+            <input type="submit" value="Update Anime" style="margin-top: 20px;" />
+        </form>
+        <form action="/delete" method="POST" style="margin-top: 10px; font-size: 0.6em;">
+            {% for anime in animeDetails %}
+            <input type="hidden" name="anime_id" value="{{anime[0]}}" />
+            {% endfor %}
+            <input type="submit" value="Delete Anime" />
+        </form>
+    </form>
+</body>
+</html>

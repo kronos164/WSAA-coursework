@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime List</title>
+</head>
+<body>
+    <h1>Anime List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Japanese Name</th>
+                <th>Type</th>
+                <th>Episodes</th>
+                <th>Studio</th>
+                <th>Release Season</th>
+                <th>Tags</th>
+                <th>Rating</th>
+                <th>Release Year</th>
+                <th>End Year</th>
+                <th>Content Warning</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for anime in animeDetails %}
+            <tr>
+                <td>{{anime[0]}}</td>
+                <td>{{anime[1]}}</td>
+                <td>{{anime[2]}}</td>
+                <td>{{anime[3]}}</td>
+                <td>{{anime[4]}}</td>
+                <td>{{anime[5]}}</td>
+                <td>{{anime[6]}}</td>
+                <td>{{anime[7]}}</td>
+                <td>{{anime[8]}}</td>
+                <td>{{anime[9]}}</td>
+                <td>{{anime[10]}}</td>
+                <td>{{anime[11]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

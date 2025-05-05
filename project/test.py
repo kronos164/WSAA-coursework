@@ -14,125 +14,123 @@ app.config['MYSQL_DB'] = db['database']
 
 mysql = MySQL(app)
 
-# function to get anime by value from the database
 
 @app.route('/', methods=['GET', 'POST'])
+
 def home():
     return render_template('index.html')
-def index():
-    if request.method == 'POST':
-        
-        anime = request.form
-        id = anime['id']
-        name = anime['name']
-        jp_name = anime['jp_name']
-        type = anime['type']
-        episodes = anime['episodes']
-        studio = anime['studio']
-        release_season = anime['release_season']
-        tags = anime['tags']
-        rating = anime['rating']
-        release_year = anime['release_year']
-        end_year = anime['end_year']
-        content_warning = anime['content_warning']
-        if id != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE id = %s", (id,))
-            anime = cursor.fetchone()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif name != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE name LIKE %s", ('%' + name + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif jp_name != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE jp_name LIKE %s", ('%' + jp_name + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif type != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE type LIKE %s", ('%' + type + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif release_season != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE release_season LIKE %s", ('%' + release_season + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif studio != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE studio LIKE %s", ('%' + studio + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif rating != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE rating LIKE %s", ('%' + rating + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif release_year != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE release_year LIKE %s", ('%' + release_year + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif end_year != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE end_year LIKE %s", ('%' + end_year + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif tags != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE tags LIKE %s", ('%' + tags + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif content_warning != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE content_warning LIKE %s", ('%' + content_warning + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
-        elif episodes != None:
-            cursor = mysql.connection.cursor()
-            cursor.execute("SELECT * FROM animes WHERE episodes LIKE %s", ('%' + episodes + '%',))
-            anime = cursor.fetchall()
-            if anime:
-                return render_template('anime.html', anime=anime)
-            else:
-                return render_template('index.html', error="Anime not found")
+def new_id():
+    cursor = mysql.connection.cursor()
+    resultValue = cursor.execute("SELECT id FROM animes ORDER BY id DESC LIMIT 1")
+    if resultValue > 0:
+        last_id = cursor.fetchone()[0]
+        return last_id + 1
+    return 1
+
+@app.route('/search', methods=['POST'])
+
+def search():
+    anime_id = request.form['id']
+    if anime_id != '':
+        cursor = mysql.connection.cursor()
+        resultValue = cursor.execute("SELECT * FROM animes WHERE id = %s", (anime_id,))
+        if resultValue > 0:
+            animeDetails = cursor.fetchall()
+            return render_template('oneanime.html', animeDetails=animeDetails)
         else:
-            return render_template('index.html', error="Please enter a value to search for")
+            return render_template('animenotfound.html')
+    else:
+        cursor = mysql.connection.cursor()
+        resultValue = cursor.execute("SELECT * FROM animes")
+        if resultValue > 0:
+            animeDetails = cursor.fetchall()
+            return render_template('anime.html', animeDetails=animeDetails)
+        else:
+            return render_template('animenotfound.html')
+        
+@app.route('/all', methods=['POST'])
+
+def all_anime():
+    cursor = mysql.connection.cursor()
+    resultValue = cursor.execute("SELECT * FROM animes")
+    if resultValue > 0:
+        animeDetails = cursor.fetchall()
+        return render_template('anime.html', animeDetails=animeDetails)
+    else:
+        return render_template('animenotfound.html')
+        
+@app.route('/add', methods=['POST'])
+
+def redirect():
+    return render_template('add.html')
+
+
+@app.route('/added', methods=['POST'])
+
+
+def add_anime():
+    id = new_id()
+    name = request.form['name']
+    jp_name = request.form['jp_name']
+    type = request.form['type']
+    episodes = request.form['episodes']
+    studio = request.form['studio']
+    release_season = request.form['release_season']
+    tags = request.form['tags']
+    rating = request.form['rating']
+    release_year = request.form['release_year']
+    end_year = request.form['end_year']
+    content_warning = request.form['content_warning']
+    
+    cursor = mysql.connection.cursor()
+    cursor.execute("""
+        INSERT INTO animes (id, name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning) 
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """, (id, name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning))
+    mysql.connection.commit()
+    cursor.close()
+    
+    cursor = mysql.connection.cursor()
+    resultValue = cursor.execute(f"SELECT * FROM animes WHERE id = {id}")
+    if resultValue > 0:
+        animeDetails = cursor.fetchall()
+        return render_template('animeadded.html', animeDetails=animeDetails)
+    else:
+        return render_template('animenotfound.html')
+    
+@app.route('/update', methods=['POST'])
+    
+def update():   
+    anime_id = request.form['anime_id']
+    name = request.form['name']
+    jp_name = request.form['jp_name']
+    type = request.form['type']
+    episodes = request.form['episodes']
+    studio = request.form['studio']
+    release_season = request.form['release_season']
+    tags = request.form['tags']
+    rating = request.form['rating']
+    release_year = request.form['release_year']
+    end_year = request.form['end_year']
+    content_warning = request.form['content_warning']
+    cursor = mysql.connection.cursor()
+    cursor.execute("UPDATE animes SET name = %s, jp_name = %s, type = %s, episodes = %s, studio = %s, release_season = %s, tags = %s, rating = %s, release_year = %s, end_year = %s, content_warning = %s WHERE id = %s", (name, jp_name, type, episodes, studio, release_season, tags, rating, release_year, end_year, content_warning, anime_id))
+    mysql.connection.commit()
+    cursor.close()
+    return render_template('animeupdated.html')
+    
+    
+@app.route('/delete', methods=['POST'])
+
+def delete():
+    anime_id = request.form['anime_id']
+    if anime_id != '':
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM animes WHERE id = %s", (anime_id,))
+        mysql.connection.commit()
+        return render_template('animedeleted.html')
+    else:
+        return render_template('animenotfound.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
