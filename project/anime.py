@@ -133,3 +133,10 @@ def delete():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
+    # References:
+    # 1. Flask documentation: https://flask.palletsprojects.com/
+    # 2. Flask-MySQLdb documentation: https://flask-mysqldb.readthedocs.io/
+    # 3. Jinja2 templating (used by render_template): https://jinja.palletsprojects.com/
+    # 4. Python DB-API (PEP 249): https://peps.python.org/pep-0249/
+    # 5. MySQL documentation (SQL syntax): https://dev.mysql.com/doc/
