@@ -82,8 +82,7 @@ WSAA-coursework/project/
    1. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form 
    2. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
    3. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select 
-   4. https://developer.mozilla.org/en-US/docs/Web/CSS/Reference
-   5. https://docs.djangoproject.com/en/4.2/topics/templates/
+Note: Copilot was used to help with the general layout of the HTMLs (input box positioning and size)
 
 
 ***
